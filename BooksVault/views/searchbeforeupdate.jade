@@ -1,0 +1,13 @@
+extends layout
+block head
+    title Search For Delete
+    link(rel="stylesheet" href="/stylesheets/flat-ui.min.css")
+    link(href="/stylesheets/indexsearch.css" rel="stylesheet")
+block content
+    div(class="container" id="searchcontainer")
+        h1 Please Input the Book's ID
+        form(action="/update1" method="POST" class="form-search")
+            div(class="input-group input-group-lg" id="searchgroup")
+                input(type="text" value="" name="ID" placeholder="input the ID" class="form-control")
+                span(class="input-group-btn")
+                    button(type="submit" class="btn btn-lg btn-primary") GO!

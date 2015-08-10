@@ -1,0 +1,19 @@
+extends layout
+block head
+    title New Book
+    link(href="/stylesheets/flat-ui.min.css" rel="stylesheet")
+block content
+    div(class="container")
+        h1 Input the Books' Information
+        div(class="container" id="inputbox")
+            form(action="/insertbook" method="POST")
+                include input_bookinfo
+
+
+
+
+
+
+
+
+

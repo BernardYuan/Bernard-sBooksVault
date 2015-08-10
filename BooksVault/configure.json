@@ -1,0 +1,6 @@
+{
+  "host"    : "bernarville.mysql.rds.aliyuncs.com",
+  "user"    : "bernard",
+  "password": "qwerty",
+  "database": "books_vault"
+}

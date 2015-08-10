@@ -1,0 +1,10 @@
+extends layout
+block head
+    title Update Book
+    link(href="/stylesheets/flat-ui.min.css" rel="stylesheet")
+block content
+    div(class="container")
+        h1(style="color:red") Please Check Book's information
+        div(class="container" id="inputbox")
+            form(action="/updatefinal" method="POST")
+                include input_bookinfo

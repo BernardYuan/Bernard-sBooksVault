@@ -1,0 +1,38 @@
+body{
+    height:100%;
+    background-image: url("/images/pic1.jpg");
+}
+.navbar-brand{
+    font-size:25px;
+}
+
+#navbar li{
+    margin:3px;
+    border-radius: 5px;
+}
+#navbar li:hover{
+    background-color: rgba(0,0,0,0.5);
+}
+#navbar li a{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.container{
+    border-radius: 5px;
+    padding:0px;
+    background-color: rgba(248,248,248,0.7);
+}
+#searchcontainer{
+    margin-top:0px;
+    padding:15% 9% 21.5% 9% ;
+    border-color: #e7e7e7;
+    background-color: rgba(248,248,248,0.7);
+    border-radius: 5px;
+    border-style: solid;
+    border-width: thin;
+}
+.navbar-default{
+    background-color: rgba(248,248,248,0.7);
+}
+#searchcontainer input[type="radio"] {
+    margin-left:10px;
+}

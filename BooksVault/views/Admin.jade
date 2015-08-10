@@ -1,0 +1,29 @@
+extends layout
+block head
+    title Admin Panel
+    link(href="/stylesheets/flat-ui.min.css" rel="stylesheet")
+block content
+    div(class="container")
+        h1 Welcome Admin :)
+        -if(warning) {
+            div(class="alert "+warning.type )=warning.info
+        -}
+        div(class="container" id="items" )
+            div(class="span3")
+                a(href="/insert" class="btn btn-large btn-block btn-info") Insert Book
+            div(class="span3")
+                a(href="/update" class="btn btn-large btn-block btn-primary") Update Book
+            div(class="span3")
+                a(href="/delete" class="btn btn-large btn-block btn-danger") Delete Book
+            div(class="span3")
+                a(href="/exit" class="btn btn-large btn-block btn-success") Exit
+            style
+                |.span3 {
+                |    margin:auto 20% 20px 20%;
+                |}
+                |.span3 a {
+                |   font-size:23px;
+                |}
+                |#items{
+                |    padding-top: 30px;
+                |}

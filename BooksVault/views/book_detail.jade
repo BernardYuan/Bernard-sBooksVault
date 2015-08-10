@@ -1,0 +1,36 @@
+extends layout
+block head
+    title=book.Title
+    link(href="/stylesheets/flat-ui.min.css" rel="stylesheet")
+block content
+    div(class="jumbotron" style="margin-bottom:0px")
+        div(class="row")
+            div(class="col-xs-6 col-md-4")
+                img(class="img-responsive" style="float:right" src=book.Image alt=book.Title)
+            div(class="col-xs-6")
+                h3(style="margin-top:10px")=book.Title
+                -if(book.Subtitle) {
+                    h5=book.Subtitle
+                -}
+                p
+                    strong Author:
+                    =book["Author"]
+                p
+                    strong Year:
+                    =book.Year
+                p
+                    strong Page:
+                    =book.Page
+                p
+                    <strong> ISBN: </strong>
+                    =book.ISBN
+                p
+                    strong Publisher:
+                    =book.Publisher
+                a(href=book.Download target="_blank")
+                    u Clik Here to Downloas
+                p=book.Description
+    style
+        |body{
+        |   background-color: #eee;
+        |}

@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+        title SearchEngine
+    body
+        form(action="/searchresult" method="POST")
+            <input type="radio" value="Keywords" name="searchkey"> keywords
+            <input type="radio" value="ISBN" name="searchkey">  ISBN
+            <input type="radio" value="Author" name="searchkey"> Author
+            <input type="radio" value="AuthorPre" name="searchkey"> Author Precise
+            <input type="radio" value="Title" name="searchkey"> Title
+            <input type="radio" value="TitlePre" name="searchkey"> Title Precise
+            <input type="radio" value="Publisher" name="searchkey">  Publisher
+            <input type="radio" value="PublisherPre" name="searchkey"> Publisher Precise
+            <input type="radio" value="ID" name="searchkey"> ID
+            br
+            input(type="text" value="" name="keyword")
+            input(type="submit")

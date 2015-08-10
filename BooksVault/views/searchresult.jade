@@ -1,0 +1,62 @@
+extends layout
+block head
+    title Book Search Results
+    link(rel="stylesheet" href="/stylesheets/flat-ui.min.css")
+block content
+    div(class="container-fluid" style="padding-left:0px;padding-right:0px; margin-bottom:5px;")
+        nav(class="navbar navbar-default" style="margin-bottom:0px;padding-left:5%;")
+            div(class="container-fluid")
+                div(class="navbar-header")
+                    a(class="navbar-brand" href="/" style="margin-right:0.8%")   Bernard's Books Vault
+                    form(action="/ordersearch" method="POST" class="form-search")
+                        div(class="input-group input-group-lg" )
+                            input(type="text" value=word name="keyword" class="form-control" readonly="readonly" style="color:black")
+                            span(class="input-group-btn")
+                                button(type="submit" class="btn btn-lg btn-primary") G0!!!
+                        //need some buttons
+                        <input type="radio" value="Year+0 DESC" name="orderkey"> New to Old(default)
+                        <input type="radio" value="Year+0" name="orderkey"> Old to New
+                        <input type="radio" value="Title" name="orderkey"> A-Z
+                        <input type="radio" value="Title DESC" name="orderkey"> Z-A
+                        <input type="radio" value="books_basic.ID+0" name="orderkey"> ID 1-9
+                        <input type="radio" value="books_basic.ID+0 DESC" name="orderkey"> ID 9-1
+    -if(warning) {
+        div(class="alert "+warning.type )=warning.info
+    -}
+    div(class="container-fluid")
+        -var i=0;
+        -var j=0;
+        -for(i=0;i<books.length;i+=3) {
+            div(class="row")
+                -for(j=i;j<=i+2;j++) {
+                    -if(books[j]) {
+                        div(class="col-xs-6 col-md-4")
+                            a(href="/book/" + books[j].ID class="thumbnail")
+                                img(src=books[j].Image alt=books[j].Title)
+                                div(class="caption" style="padding:0px")
+                                    h6=books[j].Title
+                                    -if(books[j].Subtitle!="undefined") {
+                                        p=books[j].Subtitle
+                                    -}
+                        //div(style="width:180px;height:216px;background:url('"+books[j]["Image"]+"') no-repeat;")
+                    -}
+                -}
+        -}
+    style
+        |.form-search{
+        |   margin-top:6px;
+        |}
+        |input[type="radio"] {
+        |   margin-right: 5px;
+        |   margin-left:  2px;
+        |}
+        |.navbar-brand{
+        |   padding-top:22px;
+        |   padding-right:18px;
+        |   font-size:  30px;
+        |}
+    //script(src="/javascripts/headroom.min.js")
+    //script
+    //    |var headEle=document.getElementById("header");
+    //    |var headroom=new Headroom(headEle);
+    //    |headroom.init();

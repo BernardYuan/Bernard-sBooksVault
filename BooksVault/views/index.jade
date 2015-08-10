@@ -1,0 +1,36 @@
+extends layout
+
+block head
+    title Welcome to Bernard's BookVault
+    //link(rel="stylesheet" href="/stylesheets/flat-ui.min.css")
+    link(href="/stylesheets/indexsearch.css" rel="stylesheet")
+    link(href="/stylesheets/loader.min.css" rel="stylesheet")
+block content
+    div(class="container")
+        nav(class="navbar navbar-default" style="margin-bottom:0px")
+            div(class="container-fluid")
+                div(class="navbar-header")
+                    a(class="navbar-brand" href="/")   Bernard's Books Vault
+                div(id="navbar")
+                    ul(class="nav navbar-nav navbar-right")
+                        li
+                            a(href="/login") Administrator Login
+    div(class="container" id="searchcontainer")
+        -if(warning) {
+            div(class="alert "+warning.type )=warning.info
+        -}
+        form(action="/searchresult" method="POST" class="form-search" width="80%")
+            div(class="input-group input-group-lg" id="searchgroup")
+                input(type="text" value="" name="keyword" class="form-control")
+                span(class="input-group-btn")
+                    button(type="submit" class="btn btn-lg btn-primary") GO!
+            br
+            <input type="radio" value="Keywords" name="searchkey" checked="checked"> keywords
+            <input type="radio" value="ISBN" name="searchkey">  ISBN
+            <input type="radio" value="Author" name="searchkey"> Author
+            <input type="radio" value="AuthorPre" name="searchkey"> Author Precise
+            <input type="radio" value="Title" name="searchkey"> Title
+            <input type="radio" value="TitlePre" name="searchkey"> Title Precise
+            <input type="radio" value="Publisher" name="searchkey">  Publisher
+            <input type="radio" value="PublisherPre" name="searchkey"> Publisher Precise
+            <input type="radio" value="ID" name="searchkey"> ID

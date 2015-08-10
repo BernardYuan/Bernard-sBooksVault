@@ -1,0 +1,15 @@
+extends layout
+block head
+    title Admin Sign In
+    link(href="/stylesheets/signin.css" rel="stylesheet")
+block content
+    div(class="container")
+        form(class="form-signin" action="/Admin" method="POST" )
+            h2(class="form-signin-heading") Hello Admin:)
+            h2(class="form-signin-heading") Please Sign In
+            -if(warning) {
+                div(class="alert alert-danger")=warning
+            -}
+            input(type="text" value="" name="username" class="form-control" placeholder="UserName" required)
+            input(type="password" value="" class="form-control" name="password" placeholder="PassWord" required)
+            button(class="btn btn-lg btn-primary btn-block" type="submit") Sign In
