@@ -18,74 +18,7 @@ app.use('/book',express.static('public'));
 app.use(bodyparser.urlencoded({
     extended: true
 }));
-/*connection.query('SELECT ID FROM Books_Basic WHERE Books_Basic.ID NOT IN (SELECT ID FROM Books_detail)', function(err,rows){
-    var j=0;
-    function getPartiBook(i) {
-        http.get('http://it-ebooks-api.info/v1/book/'+rows[i]["ID"],function(res) {
-            var dt="";
-            res.on('data',function(data) {
-                dt+=data;
-            });
-            res.on('end',function() {
-               var dd=JSON.parse(dt);
-                console.log(dd);
-                connection.query('INSERT INTO books_detail(ID,Author,ISBN,Page,Year,Publisher,Download) VALUES("'+dd["ID"]+'","'+dd["Author"]+'","'+dd["ISBN"]+'","'+dd["Page"]+'","'+dd["Year"]+'","'+dd["Publisher"]+'","'+dd["Download"]+'");',function(err,result){
-                    if(err) console.log(err.message);
-                    else console.log(result);
-                });
-            });
-        });
-    }
-    var si=setInterval(function(){
 
-        getPartiBook(j);
-        j=j+1;
-        if(j==rows.length) {
-            console.log(j);
-            clearInterval(si);
-        }
-    },300);
-});*/ //sending with http.get
-/*var req=http.request({host:'it-ebooks-api.info',path:'/v1/search/Java', method:'GET'},function(res){
-    //console.log("helloworld");
-    res.setEncoding('utf8');
-    var dat="";
-    res.on('data',function(data){
-        dat+=data;
-    });
-    res.on('end',function(){
-        var obj=JSON.parse(dat);
-        console.log(obj);
-    });
-});
-req.end();*/ //sending by request
-/*req.on('error',function(e){
-    console.log(e.message);
-});*/
-/*
-var option={
-    "email":"bernardyuan1@gmail.com",
-    "password":"123456"
-};
-var optbody=JSON.stringify(option);
-var req=http.request({
-        hostname: 'localhost',
-        port: 8080,
-        path: '/',
-        method:'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(optbody)
-        }
-    }
-    ,function(res){
-        res.setEncoding('utf8');
-        res.on("data",function(data){console.log(data)});
-    });
-req.write(optbody);*/
-//app.get('/search',function(req,res){
-//    res.render('searchbook');
-//});
 var order={
     "Year+0 DESC":"Publish Time Descending",
     "Year+0":"Publish Time Ascending",
