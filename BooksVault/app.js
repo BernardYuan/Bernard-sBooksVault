@@ -1,6 +1,7 @@
 /**
  * Created by Bernard on 2015/4/16.
  */
+// packages included
 var express=require('express');
 var http=require('http');
 var db=require('mysql');
@@ -10,7 +11,9 @@ var crypto=require('crypto');
 var database=db.createConnection(dbconfig);
 var SE=require('./SearchEngine');
 
+//create the app
 var app=express();
+//set up view engines, static file directories and body parser
 app.set('view engine', 'jade');
 app.set('views','./views');
 app.use(express.static('public'));
@@ -19,6 +22,7 @@ app.use(bodyparser.urlencoded({
     extended: true
 }));
 
+// different kind of queries
 var order={
     "Year+0 DESC":"Publish Time Descending",
     "Year+0":"Publish Time Ascending",
@@ -28,6 +32,8 @@ var order={
     "books_basic.ID+0":"ID Ascending"
 
 };
+
+//accessing one particular book with book id
 app.get('/book/:id',function(req,res){
     var ID=req.params.id;
     database.query('SELECT * FROM books_basic INNER JOIN books_detail ON books_basic.ID=books_detail.ID WHERE books_basic.ID="'+ID+'";',function(err,rows){
@@ -39,6 +45,8 @@ app.get('/book/:id',function(req,res){
         }
     });
 });
+
+//search for a book with keywords indicating the order
 app.post('/ordersearch',function(req,res){
     console.log(req.body);
     var kword=req.body["keyword"];
@@ -64,6 +72,8 @@ app.post('/ordersearch',function(req,res){
         }
     });
 });
+
+//search with key words
 app.post('/searchresult',function(req,res){ //search engine need some optimization
    console.log(req.body);
     var keyword=req.body["keyword"];
@@ -81,6 +91,7 @@ app.post('/searchresult',function(req,res){ //search engine need some optimizati
    // database.query('SELECT DISTINCT Title, Subtitle FROM books_basic WHERE Title LIKE "'+ppkeyword+'" OR Subtitle LIKE "'+ppkeyword+'";',);
 });
 
+//insert one book into the database
 app.get('/insert',function(req,res) {  //turn to insert page
     res.render('insert',{basic:{},detail:{}});
 });
@@ -101,10 +112,12 @@ app.post('/insertbook',function(req,res){ //insert into the database and return 
         }
     });
 });
-app.get('/update',function(req,res){ //go to a page which search the book to update with ID
-    res.render('searchbeforeupdate',{title:'Update'});
+//go to a page which search the book to update with ID
+app.get('/update',function(req,res){
+  res.render('searchbeforeupdate',{title:'Update'});
 });
-app.post('/update1',function(req,res){   //get the information of the book to update !!!need to consider no matching
+//get the information of the book to update !!!need to consider no matching
+app.post('/update1',function(req,res){
     var basic;
     var detail;
     database.query('SELECT * FROM books_basic WHERE ID="'+req.body["ID"]+'";',function(err,result1){
@@ -129,7 +142,8 @@ app.post('/update1',function(req,res){   //get the information of the book to up
         }
     });
 });
-app.post('/updatefinal',function(req, res){  //confirm and modify the update information and go back to the Admin page
+//confirm and modify the update information and go back to the Admin page
+app.post('/updatefinal',function(req, res){ 
     database.query('UPDATE books_basic SET ID="'+req.body["ID"]+'",Title="'+req.body["Title"]+'",Subtitle="'+req.body["Subtitle"]+'",Description="'+req.body["Description"]+'",Image="'+req.body["Image"]+'" WHERE ID="'+req.body["ID"]+'";',function(err1,result1){
         if(err1) {
             res.render("Admin",{warning:{type:"alert-danger",info:"Update Error!!!\n"+err1.message}});
@@ -146,10 +160,13 @@ app.post('/updatefinal',function(req, res){  //confirm and modify the update inf
         }
     });
 });
-app.get('/delete',function(req,res){  //go to the page  which search for the book to delete with ID
+//go to the page  which search for the book to delete with ID
+app.get('/delete',function(req,res){  
     res.render('searchbeforedelete',{title:'Delete'});
 });
-app.post("/delete1",function(req,res){  //get the information of the book to delete   !!!need to consider no matching
+
+//get the information of the book to delete   !!!need to consider no matching
+app.post("/delete1",function(req,res){  
     var basic;
     var detail;
     database.query('SELECT * FROM books_basic WHERE ID="'+req.body["ID"]+'";',function(err,result1){
@@ -174,7 +191,8 @@ app.post("/delete1",function(req,res){  //get the information of the book to del
         }
     });
 });
-app.post('/deletefinal',function(req,res) { //delete it and return to Admin page
+//delete it and return to Admin page
+app.post('/deletefinal',function(req,res) { 
     database.query('DELETE FROM books_basic WHERE ID="'+req.body["ID"]+'";',function(err1,result1){
         if(err1) {
             res.render('Admin',{message:{type:"alert-danger",info:"Delete Error!!!\n"+err1.message}});
@@ -192,12 +210,12 @@ app.post('/deletefinal',function(req,res) { //delete it and return to Admin page
         }
     });
 });
-app.get('/exit',function(req,res){   //return to the index page !!!remember to destroy the cookie
-    //some codes needed here to delete the cookie
+//return to the index page 
+app.get('/exit',function(req,res){
     res.render('index',{title:"title"});
 });
-
-app.post('/Admin',function(req,res) {  //administrator page
+//administrator page
+app.post('/Admin',function(req,res) {  
     console.log(req.body);
     database.query('SELECT password FROM Admin WHERE username ="'+req.body.username+'";',function(err,rows){
         if(err) {
@@ -214,15 +232,17 @@ app.post('/Admin',function(req,res) {  //administrator page
         }
     });
 });
-
-app.get('/login',function(req,res){   //administrator login page
+//administrator login page
+app.get('/login',function(req,res){   
     console.log("login page");
     res.render('login',{});
 });
-app.get('/',function(req,res){   //index page
+//index page
+app.get('/',function(req,res){   
     res.render('index',{title:"title"});
     //console.log(req.connection.remoteAddress);
 });
+// get the backend server listening at port 3000
 app.listen(3000,function() {
    console.log('Listening Port 3000');
 });
